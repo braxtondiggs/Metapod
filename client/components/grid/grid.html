@@ -1,0 +1,30 @@
+<div class="grid">
+    <div class="grid-item intro" style="background-color:#171717;cursor:pointer;" ng-click="main(-1)" ng-show="active == 'grid'">
+        <div class="content-info">
+            <img class="logo" src="http://lorempixel.com/50/50/" />
+            <div class="content-text">
+                <h3 class="grid-title">Rap Magnets</h3>
+                <p class="grid-price">Lorem ipsum dolor sit amet consectetur adipiscing elit</p>
+                <a href="" class="hi-icon fa fa-arrow-left" style="position: relative;"></a>
+            </div>
+        </div>
+        <img ng-src="{{artists[0].image}}" class="image-holder" />
+    </div>
+    <div class="grid-item" ng-repeat="card in artists" ng-style="{'background-color': card.color}" ng-click="main($index)" ng-show="active == 'grid'">
+        <div class="content">
+            <div class="content-text">
+                <div class="grid-title">{{card.name}}</div>
+                <div class="grid-price">{{card.price}}</div>
+            </div>
+        </div>
+        <img ng-src="{{card.image}}" />
+    </div>
+    <div class="grid-item coming-soon delay-1" style="background-color:#FCCEAA" ng-show="active == 'grid'">
+        <div class="content-info">
+            <div class="content-text">
+                <h3 class="grid-title">More Magnets<br />Coming Soon!</h3>
+            </div>
+        </div>
+        <img ng-src="{{artists[0].image}}" class="image-holder" />
+    </div>
+</div>

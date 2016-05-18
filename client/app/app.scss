@@ -1,0 +1,85 @@
+$fa-font-path: "../bower_components/font-awesome/fonts";
+@import '../bower_components/font-awesome/scss/font-awesome';
+
+/**
+ * App-wide Styles
+ */
+
+@font-face {
+    font-family: 'helvetica_neue_lt_pro45_light';
+    src: url('../assets/fonts/helveticaneueltpro-lt-webfont.eot');
+    src: url('../assets/fonts/helveticaneueltpro-lt-webfont.eot?#iefix') format('embedded-opentype'), url('../assets/fonts/helveticaneueltpro-lt-webfont.woff') format('woff'), url('../assets/fonts/helveticaneueltpro-lt-webfont.ttf') format('truetype'), url('../assets/fonts/helveticaneueltpro-lt-webfont.svg#helvetica_neue_lt_pro45_light') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'helvetica_neue_lt_pro47LtCn';
+    src: url('../assets/fonts/helveticaneueltpro-ltcn-webfont.eot');
+    src: url('../assets/fonts/helveticaneueltpro-ltcn-webfont.eot?#iefix') format('embedded-opentype'), url('../assets/fonts/helveticaneueltpro-ltcn-webfont.woff') format('woff'), url('../assets/fonts/helveticaneueltpro-ltcn-webfont.ttf') format('truetype'), url('../assets/fonts/helveticaneueltpro-ltcn-webfont.svg#helvetica_neue_lt_pro47LtCn') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'helvetica_neue_lt_27ultraLtCn';
+    src: url('../assets/fonts/helveticaneueltpro-ultltcn-webfont.eot');
+    src: url('../assets/fonts/helveticaneueltpro-ultltcn-webfont.eot?#iefix') format('embedded-opentype'), url('../assets/fonts/helveticaneueltpro-ultltcn-webfont.woff') format('woff'), url('../assets/fonts/helveticaneueltpro-ultltcn-webfont.ttf') format('truetype'), url('../assets/fonts/helveticaneueltpro-ultltcn-webfont.svg#helvetica_neue_lt_27ultraLtCn') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    min-width: 320px;
+    font-family: 'helvetica_neue_lt_pro47LtCn';
+    margin: 0;
+}
+
+// Component styles are injected through grunt
+// injector
+@import 'main/main.scss';
+@import '../components/grid/grid.scss';
+@import '../components/modal/modal.scss';
+@import '../components/preloader/preloader.scss';
+// endinjector
+.main.ng-hide {
+    opacity: 0;
+}
+
+.main.ng-hide-remove,
+.main.ng-hide-add {
+    display: block !important;
+}
+
+.main.ng-hide-remove {
+    transition: all linear 1000ms;
+}
+
+.main.ng-hide-add {
+    transition: all linear 1000ms;
+}
+
+.ngdialog.ngdialog-theme-default {
+    .ngdialog-content {
+        border-radius: 3px;
+        padding: 0;
+        background-color: #393E46;
+        color: #FFF;
+        h2 {
+            margin: 0;
+            padding: 0.4em;
+            text-align: center;
+            font-size: 2.4em;
+            font-weight: 300;
+            opacity: 0.8;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 3px 3px 0 0;
+        }
+        > div {
+            padding: 15px 40px 30px;
+            margin: 0;
+            font-weight: 300;
+            font-size: 1.15em;
+        }
+    }
+}

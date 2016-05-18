@@ -1,0 +1,34 @@
+<h2>Checkout</h2>
+<form name="vm.form" ng-controller="FormController as vm">
+    <wizard on-finish="vm.finishWizard()">
+        <wz-step title="Step 1" canexit="vm.exitValidation(vm.forms.step1)">
+            <form name="customerInfo" ng-submit="submitForm(customerInfo.$valid)" novalidate>
+                <div class="form-group" ng-class="{ 'has-error' : customerInfo.email.$invalid && !customerInfo.email.$pristine }">
+                    
+                    <input type="text" name="email" class="form-control" ng-model="user.email" required />
+                    <label class="control-label"><span data-content="Email">Email</span></label>
+                    <p ng-show="customerInfo.email.$invalid && !customerInfo.email.$pristine" class="help-block">Please enter a valid email address</p>
+                </div>
+                <div style="text-align:right">
+                    <button type="submit" ng-disabled="vm.forms.step1.$invalid" wz-next class="btn btn-primary submit-button">Next</button>
+                </div>
+            </form>
+        </wz-step>
+        <wz-step title="Step 2" canexit="vm.exitValidation(vm.forms.step2)">
+            <formly-form model="vm.model" fields="vm.fields.step2" form="vm.forms.step2">
+                <div style="text-align:right">
+                    <button type="submit" ng-disabled="vm.forms.step2.$invalid" wz-next class="btn btn-primary submit-button">Next</button>
+                </div>
+            </formly-form>
+        </wz-step>
+        <wz-step title="Confirm">
+            <h2>Confirm</h2>
+            <div>Username: {{vm.model.email}}</div>
+            <div>First Name: {{vm.model.firstName}}</div>
+            <div>Last Name: {{vm.model.lastName}}</div>
+            <div style="text-align:right">
+                <button type="submit" ng-disabled="vm.form.$invalid" wz-finish class="btn btn-primary submit-button">Confirm</button>
+            </div>
+        </wz-step>
+    </wizard>
+</form>

@@ -19,7 +19,7 @@
     "morgan": "~1.6.1",
     "node-easypost": "^2.0.7",
     "serve-favicon": "^2.3.0",
-    "stripe": "^4.3.0"
+    "stripe": "^4.7.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.0.0",

@@ -1,34 +1,142 @@
-<h2>Checkout</h2>
-<form name="vm.form" ng-controller="FormController as vm">
-    <wizard on-finish="vm.finishWizard()">
-        <wz-step title="Step 1" canexit="vm.exitValidation(vm.forms.step1)">
-            <form name="customerInfo" ng-submit="submitForm(customerInfo.$valid)" novalidate>
-                <div class="form-group" ng-class="{ 'has-error' : customerInfo.email.$invalid && !customerInfo.email.$pristine }">
-                    
-                    <input type="text" name="email" class="form-control" ng-model="user.email" required />
+<h2 class="checkout-title">Checkout</h2>
+<div ng-controller="FormController as vm">
+    <wizard id="checkoutForm" hide-indicators="true" on-finish="vm.finishWizard()">
+        <!--<wz-step wz-title="Step 1">
+            <h3 class="checkout-subTitle">How do you want to pay?</h3>
+            <div class="grid payment">
+                <div class="unit half" wz-next>
+                    <img src="assets/images/stripe.png" alt="Stripe" title="Stripe - Credit Cards"/>
+                </div>
+                <div class="unit half">
+                    <img src="assets/images/paypal.png" alt="Paypal" title="Paypal"/>
+                </div>
+            </div>
+        </wz-step>-->
+        <wz-step wz-title="Step 2">
+            <form name="vm.customerInfo" ng-submit="vm.submitCustomer()" novalidate>
+                <div class="form-group" ng-class="{ 'has-error' : vm.customerInfo.name.$invalid && vm.customerInfo.name.$dirty }">
+                    <input type="text" name="name" class="form-control" ng-model="vm.user.name" autocomplete="name" ng-minlength="3" ng-maxlength="18" required />
+                    <label class="control-label"><span data-content="Name">Name</span></label>
+                    <div ng-messages="vm.customerInfo.name.$error" class="help-block clearfix" ng-show="vm.customerInfo.name.$dirty">
+                        <p ng-message="minlength">Your name is too short.</p>
+                        <p ng-message="maxlength">Your name is too long.</p>
+                        <p ng-message="required">Your name is required.</p>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error' : vm.customerInfo.email.$invalid && !vm.customerInfo.email.$pristine }">
+                    <input type="email" name="email" class="form-control" ng-model="vm.user.email" autocomplete="email" required />
                     <label class="control-label"><span data-content="Email">Email</span></label>
-                    <p ng-show="customerInfo.email.$invalid && !customerInfo.email.$pristine" class="help-block">Please enter a valid email address</p>
+                    <div ng-messages="vm.customerInfo.email.$error" class="help-block clearfix" ng-show="vm.customerInfo.email.$dirty">
+                        <p ng-message="email">This needs to be a valid email</p>
+                        <p ng-message="required">Your email address is required.</p>
+                    </div>
                 </div>
                 <div style="text-align:right">
-                    <button type="submit" ng-disabled="vm.forms.step1.$invalid" wz-next class="btn btn-primary submit-button">Next</button>
+                    <button type="submit" ng-disabled="vm.customerInfo.$invalid" class="btn btn-primary submit-button">Next<i class="fa fa-arrow-right" aria-hidden="true"></i></button>
                 </div>
             </form>
         </wz-step>
-        <wz-step title="Step 2" canexit="vm.exitValidation(vm.forms.step2)">
-            <formly-form model="vm.model" fields="vm.fields.step2" form="vm.forms.step2">
-                <div style="text-align:right">
-                    <button type="submit" ng-disabled="vm.forms.step2.$invalid" wz-next class="btn btn-primary submit-button">Next</button>
+        <wz-step wz-title="Step 3">
+            <form name="vm.addressInfo" ng-submit="vm.submitAddress()" novalidate>
+                <div class="form-group" ng-class="{ 'has-error' : vm.addressInfo.address1.$invalid && vm.addressInfo.address1.$dirty }">
+                    <input type="text" name="address1" class="form-control" ng-model="vm.user.address1" autocomplete="shipping address-line1" required />
+                    <label class="control-label"><span data-content="Address">Address</span></label>
+                    <div ng-messages="vm.addressInfo.address1.$error" class="help-block clearfix" ng-show="vm.addressInfo.address1.$dirty">
+                        <p ng-message="required">Your address is required.</p>
+                    </div>
                 </div>
-            </formly-form>
+                <div class="form-group" ng-class="{ 'has-error' : vm.addressInfo.address2.$invalid && !vm.addressInfo.address2.$pristine }">
+                    <input type="text" name="address2" class="form-control" ng-model="vm.user.address2" autocomplete="shipping address-line2" />
+                    <label class="control-label"><span data-content="Address 2">Address 2</span></label>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error' : vm.addressInfo.city.$invalid && vm.addressInfo.city.$dirty }">
+                    <input type="text" name="city" class="form-control" ng-model="vm.user.city" autocomplete="shipping address-level2" required />
+                    <label class="control-label"><span data-content="City">City</span></label>
+                    <div ng-messages="vm.addressInfo.city.$error" class="help-block clearfix" ng-show="vm.addressInfo.city.$dirty">
+                        <p ng-message="required">Your city is required.</p>
+                    </div>
+                </div>
+                <div class="grid no-gutters">
+                    <div class="unit half">
+                        <div class="form-group" ng-class="{ 'has-error' : vm.addressInfo.state.$invalid && vm.addressInfo.state.$dirty }">
+                            <input type="text" name="state" class="form-control" ng-model="vm.user.state" autocomplete="shipping address-level1" required />
+                            <label class="control-label"><span data-content="State/Province/Region">State/Province/Region</span></label>
+                            <div ng-messages="vm.addressInfo.state.$error" class="help-block clearfix" ng-show="vm.addressInfo.state.$dirty">
+                                <p ng-message="required">Your state is required.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="unit half">
+                        <div class="form-group" ng-class="{ 'has-error' : vm.addressInfo.zip.$invalid && vm.addressInfo.zip.$dirty }">
+                            <input type="text" name="zip" class="form-control" ng-model="vm.user.zip" autocomplete="shipping postal-code" required />
+                            <label class="control-label"><span data-content="Zip Code">Zip Code</span></label>
+                            <div ng-messages="vm.addressInfo.zip.$error" class="help-block clearfix" ng-show="vm.addressInfo.zip.$dirty">
+                                <p ng-message="required">Your zip code is required.</p>
+                            </div>
+                        </div>
+                    </div></div>
+                <div class="form-group" ng-class="{ 'has-error' : vm.addressInfo.country.$invalid && vm.addressInfo.country.$dirty }">
+                    <select name="country" class="form-control" ng-model="vm.user.country" ng-options="country.name for country in vm.countries" autocomplete="shipping country" required></select>
+                    <label class="control-label"><span data-content="Country">Country</span></label>
+                    <div ng-messages="vm.addressInfo.country.$error" class="help-block clearfix" ng-show="vm.addressInfo.country.$dirty">
+                        <p ng-message="required">Your country is required.</p>
+                    </div>
+                </div>
+                <div style="text-align:right">
+                    <button type="submit" ng-disabled="vm.addressInfo.$invalid" class="btn btn-primary submit-button">Next<i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                </div>
+            </form>
         </wz-step>
-        <wz-step title="Confirm">
-            <h2>Confirm</h2>
-            <div>Username: {{vm.model.email}}</div>
-            <div>First Name: {{vm.model.firstName}}</div>
-            <div>Last Name: {{vm.model.lastName}}</div>
-            <div style="text-align:right">
-                <button type="submit" ng-disabled="vm.form.$invalid" wz-finish class="btn btn-primary submit-button">Confirm</button>
-            </div>
+        <wz-step wz-title="Step 4">
+            <form name="vm.paymentInfo" stripe-form="stripeCallback" novalidate>
+                <div class="form-group" ng-class="{ 'has-error' : vm.paymentInfo.card.$invalid && vm.paymentInfo.card.$dirty }">
+                    <input type="text" ng-model="number" payments-format="card" payments-validate="card" name="card" card-number class="form-control" autocomplete="cc-number" required/>
+                    <label class="control-label"><span data-content="Card Number">Card Number</span></label>
+                    <div ng-messages="vm.paymentInfo.card.$error" class="help-block clearfix" ng-show="vm.paymentInfo.card.$dirty">
+                        <p ng-message="required">Your card number is required.</p>
+                    </div>
+                </div>
+                <div class="grid no-gutters">
+                    <div class="unit half">
+                        <div class="form-group" ng-class="{ 'has-error' : vm.paymentInfo.expiry.$invalid && vm.paymentInfo.expiry.$dirty }">
+                            <input type="text" ng-model="expiry" payments-format="expiry" payments-validate="expiry" name="expiry" class="form-control" autocomplete="cc-exp" required/>
+                            <label class="control-label"><span data-content="Expiration">Expiration</span></label>
+                            <div ng-messages="vm.paymentInfo.expiry.$error" class="help-block clearfix" ng-show="vm.paymentInfo.expiry.$dirty">
+                                <p ng-message="required">Your expiry date is required.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="unit half">
+                        <div class="form-group" ng-class="{ 'has-error' : vm.paymentInfo.cvc.$invalid && vm.paymentInfo.cvc.$dirty }">
+                            <input type="text" ng-model="cvc" payments-format="cvc" payments-validate="cvc" name="cvc" class="form-control" autocomplete="cc-csc" required/>
+                            <label class="control-label"><span data-content="CVC">CVC</span></label>
+                            <div ng-messages="vm.paymentInfo.cvc.$error" class="help-block clearfix" ng-show="vm.paymentInfo.cvc.$dirty">
+                                <p ng-message="required">Your CVC is required.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align:right">
+                    <button type="submit" ng-disabled="vm.paymentInfo.$invalid" class="btn btn-primary submit-button">Submit<i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                </div>
+            </form>
+        </wz-step>
+        <wz-step wz-title="Confirm">
+            <p class="confirmation-title">Your order has been successfully placed, you should receive a confirmation email shortly.</p>
+            <ul class="confirmation">
+                <li ng-repeat="item in items">
+                    <div class="grid">
+                        <div class="unit one-quarter">
+                            <img ng-src="{{item.image}}" alt="{{item.title}}" />
+                        </div>
+                        <div class="unit three-quarters">
+                            <h2>{{item.title}}</h2>
+                            <p>Quantity: <span>{{item.quantity || number}}</span> Price: <span>{{(item.amount)/100 | currency}}</span></p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <button ng-click="closeThisDialog()">Close</button>
         </wz-step>
     </wizard>
-</form>
+</div>

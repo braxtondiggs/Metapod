@@ -315,12 +315,26 @@ module.exports = function (grunt) {
         dest: '<%= yeoman.client %>/app/app.constant.js',
         deps: [],
         wrap: true,
-        configPath: '<%= yeoman.server %>/config/environment/shared'
-      },
-      app: {
+        configPath: '<%= yeoman.server %>/config/environment/shared',
         constants: function() {
           return {
-            appConfig: require('./' + grunt.config.get('ngconstant.options.configPath'))
+            countries: require('./' + grunt.config.get('ngconstant.options.configPath')).countries
+          };
+        }
+      },
+      development: {
+        constants: function() {
+          return {
+            stripe: require('./' + grunt.config.get('ngconstant.options.configPath')).stripe.testing,
+            env: 'development'
+          };
+        }
+      },
+      production: {
+        constants: function() {
+          return {
+            stripe: require('./' + grunt.config.get('ngconstant.options.configPath')).stripe.production,
+            env: 'production'
           };
         }
       }
@@ -424,8 +438,8 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       pre: [
-        'injector:sass',
-        'ngconstant'
+        'injector:sass'//,
+        //'ngconstant'
       ],
       server: [
         'newer:babel:client',
@@ -685,6 +699,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'env:all',
+      'ngconstant:development',
       'concurrent:pre',
       'concurrent:server',
       'injector',
@@ -796,6 +811,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'ngconstant:production',
     'concurrent:pre',
     'concurrent:dist',
     'injector',

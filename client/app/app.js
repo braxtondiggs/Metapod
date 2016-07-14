@@ -2,16 +2,19 @@
 
 angular.module('metapodApp', [
         'metapodApp.constants',
-        'ngResource',
         'ngRoute',
         'ngAnimate',
-        'angular-progress-button-styles',
-        'ngStorage',
-        '720kb.socialshare',
-        '720kb.fx',
-        'angular-svg-round-progress',
+        'ngMessages',
         'ngDialog',
-        'mgo-angular-wizard'
+        'ngStorage',
+        'angular-progress-button-styles',
+        'angularPayments',
+        'credit-cards',
+        'angulartics',
+        'mgo-angular-wizard',
+        '720kb.socialshare',
+        'oitozero.ngSweetAlert',
+        'dsl-paypal-button'
     ])
     .config(function($routeProvider, $locationProvider) {
         $routeProvider
@@ -20,4 +23,7 @@ angular.module('metapodApp', [
             });
 
         $locationProvider.html5Mode(true);
+    })
+    .config(function (stripe) {
+        window.Stripe.setPublishableKey(stripe);
     });

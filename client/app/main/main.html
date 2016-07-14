@@ -77,7 +77,7 @@
     <div id="fullpage">
         <div class="section" id="intro" style="background-color:#171717;">
             <div class="content">
-                <img class="logo" src="assets/images/fridge.png " />
+                <img alt="Rap Magnets Logo" class="logo" src="assets/images/fridge.png " />
                 <h1>Rap Magnets</h1>
                 <p>Interchangeable rap-inspired refrigerator magnets</p>
                 <a href="#" class="hi-icon fa fa-arrow-down bounce animated" ng-click="scrollDown();"></a>
@@ -90,7 +90,7 @@
                     {{digitCheck($index+1)}}
                 </div>
                 <h1>{{artist.name}}</h1>
-                <h2>${{artist.price}}</h2>
+                <h2>{{artist.price | currency}}</h2>
                 <button progress-button="progressFunction(artist)" ng-if="artist.active">Add To Cart</button>
                 <p ng-if="!artist.active" class="sold-out">Currently Sold Out!</p>
                 <p>{{artist.descrip}}</p>
@@ -99,7 +99,7 @@
                 </ul>
             </div>
             <span class="pattern_background"></span>
-            <img ng-src="{{artist.image}}" class="image_magnet" ng-if="!artist.cuts"/>
+            <img alt="{{artist.name}}" ng-src="{{artist.image}}" class="image_magnet" ng-if="!artist.cuts"/>
             <div class="image_magnet_container" ng-if="artist.cuts">
                 <div class="image-holder">
                     <img ng-src="{{artist.image_cuts.head}}" class="head"/>
@@ -131,14 +131,14 @@
 <div class="grid" ng-show="active == 'grid'">
     <div class="grid-item intro" style="background-color:#171717;cursor:pointer;" ng-click="gotoMain(-1)">
         <div class="content-info">
-            <img class="logo" src="assets/images/fridge.png " />
+            <img alt="Rap Magnets Logo" class="logo" src="assets/images/fridge.png " />
             <div class="content-text">
                 <h3 class="grid-title">Rap Magnets</h3>
                 <p class="grid-price">Interchangeable rap-inspired refrigerator magnets</p>
                 <a href="" class="hi-icon fa fa-arrow-left" style="position: relative;"></a>
             </div>
         </div>
-        <img ng-src="{{artists[0].image}}" class="image-holder" />
+        <img alt="" ng-src="{{artists[0].image}}" class="image-holder" />
     </div>
     <div class="grid-item" ng-repeat="card in artists" ng-style="{'background-color': card.color}" ng-click="gotoMain($index)" ng-show="active == 'grid'">
         <div class="content">
@@ -147,7 +147,7 @@
                 <div class="grid-price">{{card.price}}</div>
             </div>
         </div>
-        <img ng-src="{{card.image}}" />
+        <img alt="" ng-src="{{card.image}}" />
     </div>
     <div class="grid-item coming-soon delay-1" style="background-color:#FCCEAA" ng-show="active == 'grid'">
         <div class="content-info">
@@ -155,6 +155,6 @@
                 <h3 class="grid-title">More Magnets<br />Coming Soon!</h3>
             </div>
         </div>
-        <img ng-src="{{artists[0].image}}" class="image-holder" />
+        <img ng-src="{{artists[0].image}}" class="image-holder" alt="" />
     </div>
 </div>

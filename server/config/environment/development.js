@@ -2,9 +2,10 @@
 
 // Development specific configuration
 // ==================================
+import config from '../../config/environment/shared';
 module.exports = {
 
   // Seed database on startup
-  seedDB: true
-
+  seedDB: true,
+  stripe: config.stripe.testing
 };

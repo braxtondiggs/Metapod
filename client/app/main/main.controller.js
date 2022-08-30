@@ -22,7 +22,7 @@
                 price: 8.99,
                 descrip: 'Add instant style to lockers, dorm rooms, workspace or the fridge while keeping your notes and reminders in view with an attention-grabbing Rectangle Magnet.',
                 info: ['Measures 2.125" x 3.125', 'Metal shell', 'Mylar/UV protecting cover', 'Flat magnetic back.'],
-                image: '/assets/images/wiz.png',
+                image: 'assets/images/wiz.png',
                 cuts: false,
                 color: '#1bbc9b',
                 active: true
@@ -35,10 +35,10 @@
                 price: 9.99,
                 descrip: 'Add instant style to lockers, dorm rooms, workspace or the fridge while keeping your notes and reminders in view with an attention-grabbing Rectangle Magnet.',
                 info: ['Measures 2.125" x 3.125', 'Metal shell', 'Mylar/UV protecting cover', 'Flat magnetic back.'],
-                image: '/assets/images/riff.png',
+                image: 'assets/images/riff.png',
                 cuts: false,
                 image_cuts: {
-                    head: '/assets/images/' + this.url + '/head.png'
+                    head: 'assets/images/' + this.url + '/head.png'
                 },
                 color: '#4AA0D5',
                 active: true

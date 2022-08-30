@@ -94,6 +94,7 @@
   },
   "scripts": {
     "start": "node server",
+    "build": "grunt build",
     "test": "grunt test",
     "update-webdriver": "node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update"
   },

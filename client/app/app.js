@@ -22,7 +22,7 @@ angular.module('metapodApp', [
                 redirectTo: '/'
             });
 
-        $locationProvider.html5Mode(true);
+        // $locationProvider.html5Mode(true);
     })
     .config(function (stripe) {
         window.Stripe.setPublishableKey(stripe);
